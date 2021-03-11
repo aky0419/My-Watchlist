@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TastyTradeMobileChallenge</string>
+    <string name="watchLists">WatchLists</string>
+    <string name="create_new_list">Create New List</string>
+</resources>

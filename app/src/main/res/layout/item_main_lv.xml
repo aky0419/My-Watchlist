@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_mainlv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My First List"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/item_mainlv_item_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 items"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"/>
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/item_mainlv_expand_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/main_expandbtn_bg"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"/>
+
+
+
+
+</RelativeLayout>
