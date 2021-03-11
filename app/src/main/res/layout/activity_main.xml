@@ -16,17 +16,20 @@
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/main_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:divider="null"
+        android:divider="@null"
         android:dividerHeight="6dp"
         android:scrollbars="none"
-        android:layout_below="@id/main_tv"/>
+        android:layout_below="@id/main_tv"
+        android:groupIndicator="@null"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
