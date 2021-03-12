@@ -28,15 +28,16 @@
         android:groupIndicator="@null"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/main_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/main_imagebtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/main_addlistbtn_bg"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_baseline_add_24"
         android:layout_margin="30dp"
-        android:contentDescription="@string/create_new_list"
+        android:onClick="onClick"
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

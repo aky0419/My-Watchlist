@@ -1,6 +1,7 @@
 package com.example.tastytrademobilechallenge;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.tastytrademobilechallenge.DataBase.DBManger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,13 +32,26 @@ class WatchListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
+        super.registerDataSetObserver(observer);
+    }
+
+    @Override
     public int getGroupCount() {
         return watchList.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return listItems.get(watchList.get(groupPosition)).size();
+        if (listItems.get(watchList.get(groupPosition)).size() == 0){
+            return 0;
+        }
+        return listItems.get(watchList.get(groupPosition)).size() + 1;
     }
 
     @Override
@@ -76,8 +92,12 @@ class WatchListAdapter extends BaseExpandableListAdapter {
         }
         groupViewHolder.watchListName.setText(watchList.get(groupPosition));
         //item count to be added from database
+        groupViewHolder.itemCount.setText(DBManger.getItemsCount(watchList.get(groupPosition)) + " items");
 
         int imageResourceId = isExpanded ? android.R.drawable.arrow_down_float : android.R.drawable.arrow_up_float;
+        if (this.getChildrenCount(groupPosition) <= 1){
+            groupViewHolder.expandBtn.setVisibility(View.GONE);
+        }
         groupViewHolder.expandBtn.setImageResource(imageResourceId);
         groupViewHolder.expandBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +109,14 @@ class WatchListAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
+        groupViewHolder.expandBtn.setFocusable(false);
         return view;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean b, View view, ViewGroup viewGroup) {
         ChildViewHolder childViewHolder = null;
-        if (listItems.size() != 0 && childPosition == 0) {
+        if (childPosition == 0) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_expandablelv_header, null);
             return view;
         }
@@ -104,7 +125,7 @@ class WatchListAdapter extends BaseExpandableListAdapter {
         if(view!=null){
             childViewHolder = (ChildViewHolder) view.getTag();
         }
-        
+
         if (childViewHolder == null){
             view = LayoutInflater.from(mContext).inflate(R.layout.item_watchlist_lv, null);
             childViewHolder = new ChildViewHolder(view);
