@@ -48,7 +48,7 @@ class WatchListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if (listItems.get(watchList.get(groupPosition)).size() == 0){
+        if (listItems.get(watchList.get(groupPosition)).size() == 0) {
             return 0;
         }
         return listItems.get(watchList.get(groupPosition)).size() + 1;
@@ -82,12 +82,12 @@ class WatchListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup viewGroup) {
         GroupViewHolder groupViewHolder;
-        if (view == null){
+        if (view == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_main_lv, null);
             groupViewHolder = new GroupViewHolder(view);
             view.setTag(groupViewHolder);
 
-        }else{
+        } else {
             groupViewHolder = (GroupViewHolder) view.getTag();
         }
         groupViewHolder.watchListName.setText(watchList.get(groupPosition));
@@ -95,16 +95,16 @@ class WatchListAdapter extends BaseExpandableListAdapter {
         groupViewHolder.itemCount.setText(DBManger.getItemsCount(watchList.get(groupPosition)) + " items");
 
         int imageResourceId = isExpanded ? android.R.drawable.arrow_down_float : android.R.drawable.arrow_up_float;
-        if (this.getChildrenCount(groupPosition) <= 1){
+        if (this.getChildrenCount(groupPosition) <= 1) {
             groupViewHolder.expandBtn.setVisibility(View.GONE);
         }
         groupViewHolder.expandBtn.setImageResource(imageResourceId);
         groupViewHolder.expandBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isExpanded) {
+                if (isExpanded) {
                     ((ExpandableListView) viewGroup).collapseGroup(groupPosition);
-                }else{
+                } else {
                     ((ExpandableListView) viewGroup).expandGroup(groupPosition, true);
                 }
             }
@@ -120,13 +120,13 @@ class WatchListAdapter extends BaseExpandableListAdapter {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_expandablelv_header, null);
             return view;
         }
-        String childItem = (String) getChild(groupPosition, childPosition-1);
+        String childItem = (String) getChild(groupPosition, childPosition - 1);
 
-        if(view!=null){
+        if (view != null) {
             childViewHolder = (ChildViewHolder) view.getTag();
         }
 
-        if (childViewHolder == null){
+        if (childViewHolder == null) {
             view = LayoutInflater.from(mContext).inflate(R.layout.item_watchlist_lv, null);
             childViewHolder = new ChildViewHolder(view);
             view.setTag(childViewHolder);
@@ -173,7 +173,7 @@ class WatchListAdapter extends BaseExpandableListAdapter {
         TextView itemCount;
         ImageButton expandBtn;
 
-        public GroupViewHolder(View itemView){
+        public GroupViewHolder(View itemView) {
             watchListName = itemView.findViewById(R.id.item_mainlv_title);
             itemCount = itemView.findViewById(R.id.item_mainlv_item_count);
             expandBtn = itemView.findViewById(R.id.item_mainlv_expand_btn);
@@ -186,7 +186,7 @@ class WatchListAdapter extends BaseExpandableListAdapter {
         TextView bidPrice;
         TextView askPrice;
 
-        public ChildViewHolder(View itemView){
+        public ChildViewHolder(View itemView) {
             symbol = itemView.findViewById(R.id.item_watchlistlv_symbol);
             lastPrice = itemView.findViewById(R.id.item_watchlistlv_last);
             bidPrice = itemView.findViewById(R.id.item_watchlistlv_bid);

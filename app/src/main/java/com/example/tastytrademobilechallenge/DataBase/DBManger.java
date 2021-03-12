@@ -56,4 +56,15 @@ public class DBManger {
         values.put("listName", listName);
         database.insert("watchlisttb", null, values);
     }
+
+    public static int deleteItemFromItemTb(String symbol){
+        return database.delete("itemtb", "symbol=?", new String[]{symbol});
+    }
+
+    public static long addItem(String listName, String symbol){
+        ContentValues values = new ContentValues();
+        values.put("listName", listName);
+        values.put("symbol", symbol);
+        return database.insert("itemtb", null, values);
+    }
 }

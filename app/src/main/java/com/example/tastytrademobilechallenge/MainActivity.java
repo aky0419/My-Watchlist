@@ -1,6 +1,12 @@
 package com.example.tastytrademobilechallenge;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +23,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ExpandableListView watchListLv;
     ImageButton addWatchListBtn;
     List<String> watchList;
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         watchList = new ArrayList<>();
         itemList = new HashMap<>();
         // need to change to real data
+
 
         mWatchListAdapter = new WatchListAdapter(this, watchList, itemList);
         watchListLv.setAdapter(mWatchListAdapter);
@@ -57,6 +64,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        Data data = new Data.Builder().putStringArray("symbolsList", new String[]{"AAPL"}).build();
+        Constraints constraints = new Constraints.Builder().setRequiresBatteryNotLow(true).build();
+        //create periodic work request
+        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyPeriodicWork.class, 5, TimeUnit.SECONDS)
+                .setInputData(data)
+                .setConstraints(constraints)
+                .addTag("download")
+                .build();
+        WorkManager.getInstance(this).enqueue(periodicWorkRequest);
+        WorkManager.getInstance(this).getWorkInfosByTagLiveData("download").observe(this, new Observer<List<WorkInfo>>() {
+            @Override
+            public void onChanged(List<WorkInfo> workInfos) {
+
+            }
+        });
 
 
     }
@@ -68,20 +90,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void insertDataFromDB(){
+    public void insertDataFromDB() {
         List<String> watchListFromDB = DBManger.getWatchLists();
         watchList.clear();
         itemList.clear();
         watchList.addAll(watchListFromDB);
-        for (String list : watchListFromDB){
+        for (String list : watchListFromDB) {
             itemList.put(list, new ArrayList<>());
             itemList.get(list).addAll(DBManger.getItemsList(list));
         }
         // this does not work, need to check how to get it work
         mWatchListAdapter.notifyDataSetChanged();
     }
-
-
 
 
     @Override
