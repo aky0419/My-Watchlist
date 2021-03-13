@@ -1,37 +1,39 @@
 package com.example.tastytrademobilechallenge;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.controls.actions.FloatAction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tastytrademobilechallenge.DataBase.DBManger;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
+
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
     ExpandableListView watchListLv;
     ImageButton addWatchListBtn;
     List<String> watchList;
     HashMap<String, List<String>> itemList;
 
     WatchListAdapter mWatchListAdapter;
+    CompositeDisposable compositeDisposable;
+
+    private StockPriceService stockPriceService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+        compositeDisposable = new CompositeDisposable();
+        stockPriceService = new StockPriceService();
+    }
 
-        Data data = new Data.Builder().putStringArray("symbolsList", new String[]{"AAPL"}).build();
-        Constraints constraints = new Constraints.Builder().setRequiresBatteryNotLow(true).build();
-        //create periodic work request
-        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyPeriodicWork.class, 5, TimeUnit.SECONDS)
-                .setInputData(data)
-                .setConstraints(constraints)
-                .addTag("download")
-                .build();
-        WorkManager.getInstance(this).enqueue(periodicWorkRequest);
-        WorkManager.getInstance(this).getWorkInfosByTagLiveData("download").observe(this, new Observer<List<WorkInfo>>() {
-            @Override
-            public void onChanged(List<WorkInfo> workInfos) {
-
-            }
-        });
-
+    private void updateUI() {
 
     }
 
@@ -87,7 +77,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         insertDataFromDB();
+        fetchData();
+    }
 
+    private void fetchData() {
+        Log.d(TAG, "fetchData: fetch data from api");
+        compositeDisposable.add(Observable.interval(0, 5, TimeUnit.SECONDS)
+                .flatMap((Function<Long, ObservableSource<?>>) aLong -> stockPriceService.getResponse("AAPL", "pk_c3ce2b10dc92443a8eb298e501c2121a"))
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(result -> {
+                    List<StockPriceModel> stockPriceModels = ((List<StockPriceModel>) result);
+                    updateUI();
+                }));
     }
 
     public void insertDataFromDB() {
@@ -115,5 +115,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }
