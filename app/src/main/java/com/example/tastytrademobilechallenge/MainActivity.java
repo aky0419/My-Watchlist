@@ -9,7 +9,11 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tastytrademobilechallenge.Adapters.WatchListAdapter;
 import com.example.tastytrademobilechallenge.DataBase.DBManger;
+import com.example.tastytrademobilechallenge.Models.StockPriceModel;
+import com.example.tastytrademobilechallenge.RetrofitApi.StockPriceService;
+import com.example.tastytrademobilechallenge.Screens.ItemDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

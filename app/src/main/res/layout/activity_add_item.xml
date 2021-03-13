@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_margin="10dp"
     android:padding="10dp"
-    tools:context=".AddItemActivity">
+    tools:context=".Screens.AddItemActivity">
 
     <EditText
         android:id="@+id/dialog_create_new_list_et"

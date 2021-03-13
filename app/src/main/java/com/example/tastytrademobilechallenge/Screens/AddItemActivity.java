@@ -1,10 +1,12 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.example.tastytrademobilechallenge.R;
 
 public class AddItemActivity extends AppCompatActivity {
 

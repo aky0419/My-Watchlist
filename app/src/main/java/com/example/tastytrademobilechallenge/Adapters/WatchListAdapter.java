@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.tastytrademobilechallenge.DataBase.DBManger;
+import com.example.tastytrademobilechallenge.R;
 
 import java.util.HashMap;
 import java.util.List;

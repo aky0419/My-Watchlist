@@ -1,6 +1,9 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.RetrofitApi;
 
 import android.util.Log;
+
+import com.example.tastytrademobilechallenge.Models.StockPriceModel;
+import com.example.tastytrademobilechallenge.RetrofitApi.IEXApi;
 
 import java.util.List;
 

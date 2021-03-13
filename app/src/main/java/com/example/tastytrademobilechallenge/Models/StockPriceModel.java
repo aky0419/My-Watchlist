@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

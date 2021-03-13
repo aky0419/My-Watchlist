@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,7 +18,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.tastytrademobilechallenge.Adapters.ItemRecyclerViewAdapter;
 import com.example.tastytrademobilechallenge.DataBase.DBManger;
+import com.example.tastytrademobilechallenge.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

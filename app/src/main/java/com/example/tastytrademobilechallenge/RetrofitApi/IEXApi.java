@@ -1,10 +1,11 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.RetrofitApi;
+
+import com.example.tastytrademobilechallenge.Models.StockPriceModel;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 //pk_c3ce2b10dc92443a8eb298e501c2121a
