@@ -103,13 +103,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 });
 
 
-//        mStockPriceModels.observe(this, new Observer<List<StockPriceModel>>() {
-//            @Override
-//            public void onChanged(List<StockPriceModel> stockPriceModels) {
-//
-//            }
-//        });
-
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
             @Override
@@ -118,9 +111,15 @@ public class ItemDetailsActivity extends AppCompatActivity {
             }
 
             @Override
+            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                if (viewHolder instanceof  ItemRecyclerViewAdapter.HeaderViewHolder) return 0;
+                return super.getSwipeDirs(recyclerView, viewHolder);
+            }
+
+            @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-                String itemToDelete = itemsList.get(viewHolder.getAdapterPosition());
+               watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
 
             }
 

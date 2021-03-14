@@ -43,13 +43,13 @@ public interface WatchListItemsDao {
     Completable insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
     @Delete
-    Completable deleteWatchList(WatchList watchList);
+    void deleteWatchList(WatchList watchList);
 
     @Delete
-    Completable deleteSymbol(Symbol symbol);
+    void deleteSymbol(Symbol symbol);
 
     @Delete
-    Completable deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
+    void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
     @Update
     Completable updateSymbols(List<Symbol> symbols);

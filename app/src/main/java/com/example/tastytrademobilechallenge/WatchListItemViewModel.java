@@ -59,25 +59,25 @@ public class WatchListItemViewModel extends AndroidViewModel {
     }
 
 
-    void insertSymbol(Symbol symbol) {
+    public void insertSymbol(Symbol symbol) {
         mRepository.insertSymbol(symbol);
     }
 
 
-    void insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
+    public void insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
         mRepository.insertWatchListSymbolCrossRef(crossRef);
     }
 
-    void deleteWatchList(WatchList watchList) {
+    public void deleteWatchList(WatchList watchList) {
         mRepository.deleteWatchList(watchList);
     }
 
 
-    void deleteSymbol(Symbol symbol) {
+    public void deleteSymbol(Symbol symbol) {
         mRepository.deleteSymbol(symbol);
     }
 
-    void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
+    public void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
         mRepository.deleteWatchListSymbolCrossRef(crossRef);
     }
 
