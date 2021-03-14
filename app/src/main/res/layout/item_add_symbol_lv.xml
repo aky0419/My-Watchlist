@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:background="@color/white">
+
+
+
+    <TextView
+        android:id="@+id/item_mainlv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My First List"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_gravity="center" />
+
+    <ImageButton
+        android:id="@+id/item_detail_add_item_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/main_addlistbtn_bg"
+        android:src="@drawable/ic_baseline_add_24"
+        android:layout_alignParentRight="true" />
+
+
+
+
+</RelativeLayout>

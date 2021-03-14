@@ -16,14 +16,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.example.tastytrademobilechallenge.DataBase.DBManger;
-
-import org.w3c.dom.Text;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class CreateWatchListDialog extends Dialog implements View.OnClickListener {
     EditText createEt;
     Button createBtn;
     TextView cancelTv;
+    CompositeDisposable mCompositeDisposable;
+    WatchListItemViewModel mWatchListItemViewModel;
 
     public CreateWatchListDialog(@NonNull Context context) {
         super(context);
@@ -40,6 +40,7 @@ public class CreateWatchListDialog extends Dialog implements View.OnClickListene
         createBtn.setOnClickListener(this);
         cancelTv.setOnClickListener(this);
         createBtn.setEnabled(false);
+        mCompositeDisposable = new CompositeDisposable();
 
         createEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -66,6 +67,10 @@ public class CreateWatchListDialog extends Dialog implements View.OnClickListene
 
     }
 
+    public void setViewModel(WatchListItemViewModel viewModel){
+        mWatchListItemViewModel = viewModel;
+    }
+
     public void setDialogSize(){
         Window window = getWindow();
         WindowManager.LayoutParams attributes = window.getAttributes();
@@ -79,12 +84,17 @@ public class CreateWatchListDialog extends Dialog implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.dialog_create_new_list_btn:
-                DBManger.addNewWatchList(createEt.getText().toString().trim());
+                mCompositeDisposable.add(mWatchListItemViewModel.addNewWatchList(new WatchList(createEt.getText().toString())));
                 cancel();
                 break;
             case R.id.dialog_create_new_list_tv:
                 cancel();
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

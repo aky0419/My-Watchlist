@@ -1,37 +1,57 @@
 package com.example.tastytrademobilechallenge.Screens;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.tastytrademobilechallenge.Adapters.ItemRecyclerViewAdapter;
-import com.example.tastytrademobilechallenge.DataBase.DBManger;
+import com.example.tastytrademobilechallenge.Models.StockPriceModel;
 import com.example.tastytrademobilechallenge.R;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.tastytrademobilechallenge.RetrofitApi.StockPriceService;
+import com.example.tastytrademobilechallenge.WatchListItemViewModel;
+import com.example.tastytrademobilechallenge.WatchListWithSymbols;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
 
 public class ItemDetailsActivity extends AppCompatActivity {
+    private static final String TAG = "ItemDetailsActivity";
+
     TextView listNameTv, listCountTv;
     ImageButton addItemBtn;
     RecyclerView itemsRv;
-    ItemRecyclerViewAdapter itemRecyclerViewAdapter;
+    ItemRecyclerViewAdapter symbolListAdapter;
     List<String> itemsList;
+    CompositeDisposable compositeDisposable;
+    private StockPriceService stockPriceService;
+
+    WatchListWithSymbols mWatchListWithSymbols;
+    WatchListItemViewModel watchListItemViewModel;
+    String listName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +64,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
         addItemBtn = findViewById(R.id.item_detail_add_item_btn);
         itemsRv = findViewById(R.id.item_detail_rv);
 
+
+        compositeDisposable = new CompositeDisposable();
+        stockPriceService = new StockPriceService();
+
+
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,20 +78,38 @@ public class ItemDetailsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-
-        String listName = intent.getStringExtra("listName");
-
+        listName = intent.getStringExtra("watchListName");
         listNameTv.setText(listName);
-
         itemsList = new ArrayList<>();
 
+        watchListItemViewModel = new ViewModelProvider(this).get(WatchListItemViewModel.class);
+
+        mWatchListWithSymbols = watchListItemViewModel.getSymbolsFromOneWatchList(listName).getValue();
+
         itemsRv.setLayoutManager(new LinearLayoutManager(this));
-        itemsList.addAll(DBManger.getItemsList(listName));
+        symbolListAdapter = new ItemRecyclerViewAdapter(this);
+        itemsRv.setAdapter(symbolListAdapter);
 
-        listCountTv.setText(itemsList.size() + " items");
+        watchListItemViewModel
+                .getSymbolsFromOneWatchList(listName)
+                .observe(this, new Observer<WatchListWithSymbols>() {
+                    @Override
+                    public void onChanged(WatchListWithSymbols watchListWithSymbols) {
+                        symbolListAdapter.setSymbols(watchListWithSymbols);
+                        mWatchListWithSymbols = watchListWithSymbols;
+                        listCountTv.setText(watchListWithSymbols.symbols.size() + " items");
+                        watchListItemViewModel.lastWatchListWithSymbols = watchListWithSymbols;
+                    }
+                });
 
-        itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(itemsList, this);
-        itemsRv.setAdapter(itemRecyclerViewAdapter);
+
+//        mStockPriceModels.observe(this, new Observer<List<StockPriceModel>>() {
+//            @Override
+//            public void onChanged(List<StockPriceModel> stockPriceModels) {
+//
+//            }
+//        });
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
             @Override
@@ -78,14 +121,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
                 String itemToDelete = itemsList.get(viewHolder.getAdapterPosition());
-                DBManger.deleteItemFromItemTb(itemToDelete);
-                Snackbar.make(findViewById(R.id.item_detail_rv), "Deleted a symbol", Snackbar.LENGTH_SHORT).setAction("Cancel", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DBManger.addItem(listName, itemToDelete);
-
-                    }
-                }).show();
 
             }
 
@@ -123,6 +158,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice(listName));
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -131,5 +174,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        compositeDisposable.dispose();
     }
 }

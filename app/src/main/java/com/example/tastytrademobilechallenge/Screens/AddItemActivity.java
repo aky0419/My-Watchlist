@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.tastytrademobilechallenge.R;
 
 public class AddItemActivity extends AppCompatActivity {
+
+    EditText mEditText;
+    ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

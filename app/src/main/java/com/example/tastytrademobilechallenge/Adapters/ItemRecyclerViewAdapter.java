@@ -9,44 +9,83 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tastytrademobilechallenge.Models.StockPriceModel;
 import com.example.tastytrademobilechallenge.R;
+import com.example.tastytrademobilechallenge.Symbol;
+import com.example.tastytrademobilechallenge.WatchList;
+import com.example.tastytrademobilechallenge.WatchListWithSymbols;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
-    List<String> itemsList;
+public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+    WatchListWithSymbols mWatchListWithSymbols = new WatchListWithSymbols(new WatchList(""), new ArrayList<>());
     Context mContext;
 
-    public ItemRecyclerViewAdapter(List<String> itemsList, Context mContext) {
-        this.itemsList = itemsList;
+    public ItemRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_watchlist_lv, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_ITEM) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_watchlist_lv, parent, false);
+            return new ItemViewHolder(view);
+        } else if (viewType == TYPE_HEADER) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_expandablelv_header, parent, false);
+            return new HeaderViewHolder(view);
+        }
+        else return null;
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String item = itemsList.get(position);
-        holder.symbol.setText(item);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ItemViewHolder) {
+            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+            Symbol symbol = mWatchListWithSymbols.symbols.get(position - 1);
+            itemViewHolder.symbol.setText(symbol.getSymbol());
+            itemViewHolder.bidPrice.setText(String.valueOf(symbol.getBidPrice()));
+            itemViewHolder.askPrice.setText(String.valueOf(symbol.getAskPrice()));
+            itemViewHolder.lastPrice.setText(String.valueOf(symbol.getLastPrice()));
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return itemsList.size();
+        if (mWatchListWithSymbols.symbols == null || mWatchListWithSymbols.symbols.size() == 0) return 0;
+        return mWatchListWithSymbols.symbols.size() + 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemViewType(int position) {
+        if (isPositionHeader(position))
+            return TYPE_HEADER;
+
+        return TYPE_ITEM;
+    }
+
+    private boolean isPositionHeader(int position) {
+        return position == 0;
+    }
+
+    public void setSymbols(WatchListWithSymbols watchListWithSymbols) {
+        this.mWatchListWithSymbols = watchListWithSymbols;
+        notifyDataSetChanged();
+    }
+
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView symbol;
         TextView lastPrice;
         TextView bidPrice;
         TextView askPrice;
 
-        public ViewHolder(View itemView){
+        public ItemViewHolder(View itemView) {
             super(itemView);
             symbol = itemView.findViewById(R.id.item_watchlistlv_symbol);
             lastPrice = itemView.findViewById(R.id.item_watchlistlv_last);
@@ -55,5 +94,13 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         }
 
 
+    }
+
+
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 }
