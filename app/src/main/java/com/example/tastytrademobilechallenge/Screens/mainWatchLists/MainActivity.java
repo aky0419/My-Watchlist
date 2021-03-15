@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens.mainWatchLists;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.RetrofitApi.StockPriceService;
+import com.example.tastytrademobilechallenge.R;
+import com.example.tastytrademobilechallenge.Screens.mainWatchLists.adapters.WatchListAdapter;
+import com.example.tastytrademobilechallenge.Screens.watchlistDetail.WatchListItemViewModel;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
 import java.util.List;
 

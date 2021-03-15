@@ -1,17 +1,19 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens.watchlistDetail;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.tastytrademobilechallenge.Models.Symbol;
+import com.example.tastytrademobilechallenge.Models.WatchList;
 import com.example.tastytrademobilechallenge.Repositories.IEXApiRepository;
 import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepository;
+import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -19,8 +21,6 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class WatchListItemViewModel extends AndroidViewModel {

@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge.Screens;
+package com.example.tastytrademobilechallenge.Screens.watchlistDetail;
 
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,22 +20,16 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.Adapters.ItemRecyclerViewAdapter;
-import com.example.tastytrademobilechallenge.Models.StockPriceModel;
+import com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters.ItemRecyclerViewAdapter;
 import com.example.tastytrademobilechallenge.R;
 import com.example.tastytrademobilechallenge.RetrofitApi.StockPriceService;
-import com.example.tastytrademobilechallenge.WatchListItemViewModel;
-import com.example.tastytrademobilechallenge.WatchListWithSymbols;
+import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.AddItemActivity;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Function;
 
 public class ItemDetailsActivity extends AppCompatActivity {
     private static final String TAG = "ItemDetailsActivity";

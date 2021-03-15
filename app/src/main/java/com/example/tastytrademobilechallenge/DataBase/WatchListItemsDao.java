@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.DataBase;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -9,10 +9,14 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.tastytrademobilechallenge.Models.Symbol;
+import com.example.tastytrademobilechallenge.Models.WatchList;
+import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
+
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao

@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

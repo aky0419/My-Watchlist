@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens.mainWatchLists;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.example.tastytrademobilechallenge.R;
+import com.example.tastytrademobilechallenge.Models.WatchList;
+import com.example.tastytrademobilechallenge.Screens.watchlistDetail.WatchListItemViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
 

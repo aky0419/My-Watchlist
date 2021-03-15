@@ -1,16 +1,16 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens.symbolTypeahead;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.Repositories.AutoSuggestRepository;
 import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepository;
+import com.example.tastytrademobilechallenge.Models.Symbol;
+import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
 
 import java.util.List;
 

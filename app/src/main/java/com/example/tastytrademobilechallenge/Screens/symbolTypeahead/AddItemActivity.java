@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge.Screens;
+package com.example.tastytrademobilechallenge.Screens.symbolTypeahead;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.tastytrademobilechallenge.Adapters.SearchSymbolLvAdapter;
-import com.example.tastytrademobilechallenge.AddItemViewModel;
+import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.adapters.SearchSymbolLvAdapter;
 import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.R;
-import com.example.tastytrademobilechallenge.WatchListItemViewModel;
 
 import java.util.List;
 

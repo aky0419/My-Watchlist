@@ -1,10 +1,14 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.DataBase;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
+import com.example.tastytrademobilechallenge.Models.Symbol;
+import com.example.tastytrademobilechallenge.Models.WatchList;
+import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
 
 // can add more entity in curly brackets
 // setup database

@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge.Adapters;
+package com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,14 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.Models.StockPriceModel;
 import com.example.tastytrademobilechallenge.R;
-import com.example.tastytrademobilechallenge.Symbol;
-import com.example.tastytrademobilechallenge.WatchList;
-import com.example.tastytrademobilechallenge.WatchListWithSymbols;
+import com.example.tastytrademobilechallenge.Models.Symbol;
+import com.example.tastytrademobilechallenge.Models.WatchList;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private static final int TYPE_HEADER = 0;

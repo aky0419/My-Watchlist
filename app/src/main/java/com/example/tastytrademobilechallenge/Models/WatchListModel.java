@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Models;
 
 import com.example.tastytrademobilechallenge.Models.StockPriceModel;
 

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_margin="10dp"
     android:padding="10dp"
-    tools:context=".Screens.AddItemActivity">
+    tools:context=".Screens.symbolTypeahead.AddItemActivity">
 
     <EditText
         android:id="@+id/add_item_et"

@@ -1,8 +1,6 @@
-package com.example.tastytrademobilechallenge.Adapters;
+package com.example.tastytrademobilechallenge.Screens.symbolTypeahead.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.tastytrademobilechallenge.AddItemViewModel;
+import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.AddItemViewModel;
 import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.R;
-import com.example.tastytrademobilechallenge.Screens.AddItemActivity;
-import com.example.tastytrademobilechallenge.Screens.ItemDetailsActivity;
-import com.example.tastytrademobilechallenge.Symbol;
-import com.example.tastytrademobilechallenge.WatchListItemViewModel;
-import com.example.tastytrademobilechallenge.WatchListSymbolCrossRef;
+import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.AddItemActivity;
+import com.example.tastytrademobilechallenge.Models.Symbol;
 
 import java.util.ArrayList;
 import java.util.List;

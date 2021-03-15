@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens.mainWatchLists.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.Screens.AddItemActivity;
-import com.example.tastytrademobilechallenge.Screens.ItemDetailsActivity;
+import com.example.tastytrademobilechallenge.Models.WatchList;
+import com.example.tastytrademobilechallenge.R;
+import com.example.tastytrademobilechallenge.Screens.watchlistDetail.ItemDetailsActivity;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
 import java.util.ArrayList;
 import java.util.List;
