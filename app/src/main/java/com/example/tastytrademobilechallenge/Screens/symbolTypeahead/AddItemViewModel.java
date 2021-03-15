@@ -42,6 +42,6 @@ public class AddItemViewModel extends AndroidViewModel {
                 .insertWatchListSymbolCrossRef(
                         new WatchListSymbolCrossRef(listName, symbol.getSymbol())
                 );
-        Completable.concatArray(insertTask,updateRelationTask).subscribe();
+        Completable.concatArray(insertTask, updateRelationTask).subscribe();
     }
 }

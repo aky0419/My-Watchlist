@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,18 +21,18 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters.ItemRecyclerViewAdapter;
-import com.example.tastytrademobilechallenge.R;
-import com.example.tastytrademobilechallenge.RetrofitApi.StockPriceService;
-import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.AddItemActivity;
+import com.example.tastytrademobilechallenge.HistoryGraphActivity;
 import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
+import com.example.tastytrademobilechallenge.R;
+import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.AddItemActivity;
+import com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters.ItemRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class ItemDetailsActivity extends AppCompatActivity {
+public class ItemDetailsActivity extends AppCompatActivity implements ItemRecyclerViewAdapter.OnSymbolListener {
     private static final String TAG = "ItemDetailsActivity";
 
     TextView listNameTv, listCountTv;
@@ -40,7 +41,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
     ItemRecyclerViewAdapter symbolListAdapter;
     List<String> itemsList;
     CompositeDisposable compositeDisposable;
-    private StockPriceService stockPriceService;
 
     WatchListWithSymbols mWatchListWithSymbols;
     WatchListItemViewModel watchListItemViewModel;
@@ -57,11 +57,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         addItemBtn = findViewById(R.id.item_detail_add_item_btn);
         itemsRv = findViewById(R.id.item_detail_rv);
 
-
-
-        stockPriceService = new StockPriceService();
         compositeDisposable = new CompositeDisposable();
-
 
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +78,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         mWatchListWithSymbols = watchListItemViewModel.getSymbolsFromOneWatchList(listName).getValue();
 
         itemsRv.setLayoutManager(new LinearLayoutManager(this));
-        symbolListAdapter = new ItemRecyclerViewAdapter(this);
+        symbolListAdapter = new ItemRecyclerViewAdapter(this, this);
         itemsRv.setAdapter(symbolListAdapter);
 
         watchListItemViewModel
@@ -98,7 +94,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 });
 
 
-
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.START) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -106,15 +101,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
             }
 
             @Override
-            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                if (viewHolder instanceof  ItemRecyclerViewAdapter.HeaderViewHolder) return 0;
-                return super.getSwipeDirs(recyclerView, viewHolder);
-            }
-
-            @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-               watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
+                watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
 
             }
 
@@ -157,7 +146,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         compositeDisposable.add(watchListItemViewModel.fetchAndUpdatePrice());
-        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
+//        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
     }
 
     @Override
@@ -174,5 +163,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         compositeDisposable.clear();
+    }
+
+    @Override
+    public void onSymbolClick(int position) {
+        Log.d(TAG, "onSymbolClick: clicked");
+        Intent intent = new Intent(this, HistoryGraphActivity.class);
+        intent.putExtra("symbol", mWatchListWithSymbols.symbols.get(position).symbol);
+        startActivity(intent);
     }
 }

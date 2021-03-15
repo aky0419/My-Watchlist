@@ -25,7 +25,6 @@ public class AddItemActivity extends AppCompatActivity {
     EditText mEditText;
     ListView mListView;
     AddItemViewModel mAddItemViewModel;
-    MutableLiveData<SymbolAutocompleteModel> symbols;
     SearchSymbolLvAdapter mAdapter;
     String listName;
 
@@ -60,7 +59,6 @@ public class AddItemActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
                     mAddItemViewModel.searchSymbols(charSequence.toString().trim());
-
                 }
             }
 

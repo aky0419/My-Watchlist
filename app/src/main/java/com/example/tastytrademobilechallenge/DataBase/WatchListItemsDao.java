@@ -47,10 +47,10 @@ public interface WatchListItemsDao {
     Completable insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
     @Delete
-    void deleteWatchList(WatchList watchList);
+    Completable deleteWatchList(WatchList watchList);
 
     @Delete
-    void deleteSymbol(Symbol symbol);
+    Completable deleteSymbol(Symbol symbol);
 
     @Delete
     void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);

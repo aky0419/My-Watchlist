@@ -62,13 +62,13 @@ public class WatchListItemRepository {
     }
 
 
-    public void deleteWatchList(WatchList watchList) {
-        mWatchListItemsDao.deleteWatchList(watchList);
+    public Completable deleteWatchList(WatchList watchList) {
+        return mWatchListItemsDao.deleteWatchList(watchList).subscribeOn(Schedulers.io());
     }
 
 
-    public void deleteSymbol(Symbol symbol) {
-        mWatchListItemsDao.deleteSymbol(symbol);
+    public Completable deleteSymbol(Symbol symbol) {
+        return mWatchListItemsDao.deleteSymbol(symbol).subscribeOn(Schedulers.io());
     }
 
     public void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
