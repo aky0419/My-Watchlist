@@ -28,11 +28,7 @@ public class AutoSuggestRepository {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         okhttpClient.addInterceptor(logging);
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(IEXBaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -46,10 +42,6 @@ public class AutoSuggestRepository {
     public Observable<List<SymbolAutocompleteModel>> searchSymbols(String symbol) {
         return mAutoSuggestApi
                 .getSymbolsBySearch(symbol, 10, "NASDAQ", "demo")
-                .map(symbolAutocompleteModels -> {
-                    Log.d(TAG, "response array size -> " + symbolAutocompleteModels.size());
-                    return symbolAutocompleteModels;
-                })
                 .subscribeOn(Schedulers.io());
     }
 }

@@ -42,10 +42,6 @@ public class IEXApiRepository {
         }
         return iexApi
                 .getMarketQuotes("quote", symbols, accessToken)
-                .map(symbol -> {
-                    Log.d(TAG, "GET symbol count -> " + symbol.size());
-                    return symbol;
-                })
                 .map(stringQuoteModelMap -> {
                     List<Symbol> next = new ArrayList<>();
                     for (Map.Entry<String, Map<String, QuoteModel>> entry : stringQuoteModelMap.entrySet()) {

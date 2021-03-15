@@ -38,7 +38,10 @@ public class AddItemViewModel extends AndroidViewModel {
 
     public void addTicket(Symbol symbol, String listName) {
         Completable insertTask = mWatchListItemRepository.insertSymbol(symbol);
-        Completable updateRelationTask = mWatchListItemRepository.insertWatchListSymbolCrossRef(new WatchListSymbolCrossRef(listName, symbol.getSymbol()));
+        Completable updateRelationTask = mWatchListItemRepository
+                .insertWatchListSymbolCrossRef(
+                        new WatchListSymbolCrossRef(listName, symbol.getSymbol())
+                );
         Completable.concatArray(insertTask,updateRelationTask).subscribe();
     }
 }

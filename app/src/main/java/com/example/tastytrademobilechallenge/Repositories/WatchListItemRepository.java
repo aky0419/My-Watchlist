@@ -22,7 +22,8 @@ public class WatchListItemRepository {
     private WatchListItemsDao mWatchListItemsDao;
     private Single<List<WatchList>> watchLists;
     private LiveData<List<WatchListWithSymbols>> watchListsWithSymbols;
-    final String[] defaultSymbols = {"AAPL", "MSFT", "GOOG"};
+    final String[] DEFAULT_SYMBOLS = {"AAPL", "MSFT", "GOOG"};
+    final String DEFAULT_LIST_NAME = "My first list";
 
 
     public WatchListItemRepository(Application application) {
@@ -48,7 +49,7 @@ public class WatchListItemRepository {
 
 
     public Completable insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
-       return mWatchListItemsDao.insertWatchListSymbolCrossRef(crossRef).subscribeOn(Schedulers.io());
+        return mWatchListItemsDao.insertWatchListSymbolCrossRef(crossRef).subscribeOn(Schedulers.io());
     }
 
 
@@ -79,11 +80,11 @@ public class WatchListItemRepository {
         return watchLists.subscribeOn(Schedulers.io())
                 .subscribe((watchLists) -> {
                     if (watchLists.size() == 0) {
-                        WatchList watchList = new WatchList("My first list");
+                        WatchList watchList = new WatchList(DEFAULT_LIST_NAME);
                         this.insertWatchList(watchList).subscribe();
-                        for (String s : defaultSymbols) {
+                        for (String s : DEFAULT_SYMBOLS) {
                             this.insertSymbol(new Symbol(s, 0, 0, 0)).subscribe();
-                            this.insertWatchListSymbolCrossRef(new WatchListSymbolCrossRef("My first list", s)).subscribe();
+                            this.insertWatchListSymbolCrossRef(new WatchListSymbolCrossRef(DEFAULT_LIST_NAME, s)).subscribe();
                         }
                     }
                 });

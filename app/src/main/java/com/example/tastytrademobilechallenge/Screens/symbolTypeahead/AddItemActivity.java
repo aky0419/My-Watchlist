@@ -47,12 +47,7 @@ public class AddItemActivity extends AppCompatActivity {
         mListView.setAdapter(mAdapter);
 
 
-        mAddItemViewModel.symbols.observe(this, new Observer<List<SymbolAutocompleteModel>>() {
-            @Override
-            public void onChanged(List<SymbolAutocompleteModel> symbolAutocompleteModels) {
-                mAdapter.setData(symbolAutocompleteModels);
-            }
-        });
+        mAddItemViewModel.symbols.observe(this, mAdapter::setData);
 
 
         mEditText.addTextChangedListener(new TextWatcher() {

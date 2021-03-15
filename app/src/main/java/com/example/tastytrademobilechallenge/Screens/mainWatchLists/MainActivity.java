@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     WatchListAdapter mWatchListAdapter;
     CompositeDisposable compositeDisposable;
 
-//    private StockPriceService stockPriceService;
     WatchListItemViewModel watchListItemViewModel;
 
 
@@ -47,16 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         watchListRv.setLayoutManager(new LinearLayoutManager(this));
         watchListItemViewModel = new ViewModelProvider(this).get(WatchListItemViewModel.class);
 
-//        stockPriceService = new StockPriceService();
-
         compositeDisposable.add(watchListItemViewModel.addDefaultWatchListIfNotExist());
 
-        watchListItemViewModel.getWatchListsWithSymbols().observe(this, new Observer<List<WatchListWithSymbols>>() {
-            @Override
-            public void onChanged(List<WatchListWithSymbols> watchListWithSymbols) {
-                mWatchListAdapter.setNodes(watchListWithSymbols);
-            }
-        });
+        watchListItemViewModel.getWatchListsWithSymbols().observe(this, mWatchListAdapter::setNodes);
     }
 
 

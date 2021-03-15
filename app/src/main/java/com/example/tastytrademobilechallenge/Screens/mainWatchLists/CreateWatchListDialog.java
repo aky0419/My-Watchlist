@@ -54,13 +54,13 @@ public class CreateWatchListDialog extends Dialog implements View.OnClickListene
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if (charSequence.toString().trim().length() == 0){
-                        createBtn.setEnabled(false);
-                        createBtn.setBackgroundColor(createBtn.getContext().getResources().getColor(R.color.green_grey));
-                    }else{
-                        createBtn.setEnabled(true);
-                        createBtn.setBackgroundColor(createBtn.getContext().getResources().getColor(R.color.green));
-                    }
+                if (charSequence.toString().trim().length() == 0) {
+                    createBtn.setEnabled(false);
+                    createBtn.setBackgroundColor(createBtn.getContext().getResources().getColor(R.color.green_grey));
+                } else {
+                    createBtn.setEnabled(true);
+                    createBtn.setBackgroundColor(createBtn.getContext().getResources().getColor(R.color.green));
+                }
             }
 
             @Override
@@ -71,11 +71,11 @@ public class CreateWatchListDialog extends Dialog implements View.OnClickListene
 
     }
 
-    public void setViewModel(WatchListItemViewModel viewModel){
+    public void setViewModel(WatchListItemViewModel viewModel) {
         mWatchListItemViewModel = viewModel;
     }
 
-    public void setDialogSize(){
+    public void setDialogSize() {
         Window window = getWindow();
         WindowManager.LayoutParams attributes = window.getAttributes();
         Display display = window.getWindowManager().getDefaultDisplay();
@@ -86,7 +86,7 @@ public class CreateWatchListDialog extends Dialog implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.dialog_create_new_list_btn:
                 mCompositeDisposable.add(mWatchListItemViewModel.addNewWatchList(new WatchList(createEt.getText().toString())));
                 cancel();
