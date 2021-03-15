@@ -33,6 +33,6 @@ public class HistoryGraphViewModel extends AndroidViewModel {
                     Log.d("HistoryGraphhViewModel", throwable.getLocalizedMessage());
                     return Observable.error(throwable);
                 })
-                .subscribe();
+                .subscribe(historicalDataList :: postValue);
     }
 }

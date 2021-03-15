@@ -36,6 +36,8 @@ public class HistoryGraphActivity extends AppCompatActivity {
     private List<Integer> colour = new ArrayList<>();//折线颜色集合
 
     private LineDataSet set1;
+    double highestPrice;
+    double lowestPrices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class HistoryGraphActivity extends AppCompatActivity {
         //初始化View
         initView();
         Intent intent = getIntent();
+        highestPrice = Double.MIN_VALUE;
+        lowestPrices = Double.MAX_VALUE;
         symbolName = intent.getStringExtra("symbol");
         mHistoryGraphViewModel = new ViewModelProvider(this).get(HistoryGraphViewModel.class);
         mHistoryGraphViewModel.getHistoricalDataList(symbolName);
@@ -51,6 +55,17 @@ public class HistoryGraphActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<HistoricalDataModel> historicalDataModels) {
                 Log.d(TAG, "onChanged: datachanged");
+                ArrayList<Entry> values = new ArrayList<Entry>();
+                for (int i= 0; i<historicalDataModels.size(); i++){
+                    HistoricalDataModel data = historicalDataModels.get(i);
+                    highestPrice = Math.max(data.getHigh(), highestPrice);
+                    lowestPrices = Math.min(data.getLow(), lowestPrices);
+                    float avePrice = (float) (data.getHigh() + data.getLow() / 2.0);
+                    values.add(new Entry(i, avePrice));
+                }
+                setXAxis((float) historicalDataModels.size());
+                setYAxis((float) lowestPrices, (float) highestPrice);
+                setData(values);
             }
         });
 
@@ -79,40 +94,8 @@ public class HistoryGraphActivity extends AppCompatActivity {
         //如果禁用,扩展可以在x轴和y轴分别完成
         mCandleStickChart.setPinchZoom(true);
 
-
-        setAxis();
-
-        YAxis leftAxis = mCandleStickChart.getAxisLeft();
-
-        leftAxis.setAxisMaximum(220f);
-        //y轴最小
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(false);
-
-        // 限制数据(而不是背后的线条勾勒出了上面)
-        leftAxis.setDrawLimitLinesBehindData(true);
-
         mCandleStickChart.getAxisRight().setEnabled(false);
 
-        //这里我模拟一些数据
-        ArrayList<Entry> values = new ArrayList<Entry>();
-        values.add(new Entry(5, 50));
-        values.add(new Entry(10, 66));
-        values.add(new Entry(15, 120));
-        values.add(new Entry(20, 30));
-        values.add(new Entry(35, 10));
-        values.add(new Entry(40, 110));
-        values.add(new Entry(45, 30));
-        values.add(new Entry(50, 160));
-        values.add(new Entry(60, 140));
-        values.add(new Entry(70, 20));
-        values.add(new Entry(80, 60));
-        values.add(new Entry(90, 160));
-        values.add(new Entry(100, 30));
-
-        //设置数据
-        setData(values);
 
         //默认动画
         mCandleStickChart.animateX(10);
@@ -171,14 +154,25 @@ public class HistoryGraphActivity extends AppCompatActivity {
         }
     }
 
-    public void setAxis() {
+    public void setXAxis(float XAxisMax) {
         XAxis xAxis = mCandleStickChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         //设置x轴的最大值
-        xAxis.setAxisMaximum(100f);
+        xAxis.setAxisMaximum(XAxisMax);
         //设置x轴的最小值
         xAxis.setAxisMinimum(0f);
 
+    }
+
+    public void setYAxis(float YAxisMin, float YAxisMax){
+        YAxis leftAxis = mCandleStickChart.getAxisLeft();
+
+        leftAxis.setAxisMaximum(YAxisMax);
+        //y轴最小
+        leftAxis.setAxisMinimum(YAxisMin);
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.setDrawZeroLine(false);
+        leftAxis.setDrawLimitLinesBehindData(true);
     }
 
 
