@@ -1,7 +1,10 @@
 package com.example.tastytrademobilechallenge.RetrofitApi;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.tastytrademobilechallenge.Models.QuoteModel;
 import com.example.tastytrademobilechallenge.Models.StockPriceModel;
+import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +23,7 @@ public interface IEXApi {
 
 
     @GET("stable/search/{fragment}")
-    Call<List<String>> getSymbolsBySearch(@Path("fragment") String symbolFrag, @Query("token") String accessToken);
+    Observable<List<SymbolAutocompleteModel>> getSymbolsBySearch(@Path("fragment") String symbolFrag, @Query("token") String accessToken);
 
     @GET("stable/stock/market/batch")
     Observable<Map<String, Map<String, QuoteModel>>> getMarketQuotes(@Query("types") String types, @Query("symbols") String symbols, @Query("token") String accessToken);

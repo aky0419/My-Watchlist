@@ -4,9 +4,11 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.LiveData;
 
 import com.example.tastytrademobilechallenge.Models.QuoteModel;
 import com.example.tastytrademobilechallenge.Models.StockPriceModel;
+import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.RetrofitApi.IEXApi;
 import com.example.tastytrademobilechallenge.Symbol;
 
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
@@ -49,6 +52,9 @@ public class IEXApiRepository {
 
     public Observable<List<Symbol>> getResponse(String symbols) {
         Log.d(TAG, "getResponse: I am working every 5s -> " + symbols);
+        if (symbols == null || symbols.trim().isEmpty()) {
+            return Observable.just(new ArrayList<>());
+        }
         return iexApi
                 .getMarketQuotes("quote", symbols, accessToken)
                 .map(symbol -> {
@@ -76,8 +82,8 @@ public class IEXApiRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Call<List<String>> searchSymbol(String symbolsFrag, String accessToken) {
-        return iexApi.getSymbolsBySearch(symbolsFrag, accessToken);
-    }
+
+
+
 
 }

@@ -65,14 +65,16 @@ public class ItemDetailsActivity extends AppCompatActivity {
         itemsRv = findViewById(R.id.item_detail_rv);
 
 
-        compositeDisposable = new CompositeDisposable();
+
         stockPriceService = new StockPriceService();
+        compositeDisposable = new CompositeDisposable();
 
 
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ItemDetailsActivity.this, AddItemActivity.class);
+                intent.putExtra("watchListName", listName);
                 startActivity(intent);
             }
         });
@@ -161,8 +163,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice(listName));
-
+        compositeDisposable.add(watchListItemViewModel.fetchAndUpdatePrice());
+        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
     }
 
     @Override
@@ -178,6 +180,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -44,12 +45,12 @@ public class WatchListItemRepository {
 
 
     public Completable insertSymbol(Symbol symbol) {
-        return mWatchListItemsDao.insertSymbol(symbol);
+        return mWatchListItemsDao.insertSymbol(symbol).subscribeOn(Schedulers.io());
     }
 
 
     public Completable insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
-       return mWatchListItemsDao.insertWatchListSymbolCrossRef(crossRef);
+       return mWatchListItemsDao.insertWatchListSymbolCrossRef(crossRef).subscribeOn(Schedulers.io());
     }
 
 

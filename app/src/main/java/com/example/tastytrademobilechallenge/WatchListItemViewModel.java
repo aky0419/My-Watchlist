@@ -1,6 +1,7 @@
 package com.example.tastytrademobilechallenge;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -20,6 +21,7 @@ import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 public class WatchListItemViewModel extends AndroidViewModel {
 
@@ -60,12 +62,12 @@ public class WatchListItemViewModel extends AndroidViewModel {
 
 
     public void insertSymbol(Symbol symbol) {
-        mRepository.insertSymbol(symbol);
+        mRepository.insertSymbol(symbol).subscribe();
     }
 
 
     public void insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
-        mRepository.insertWatchListSymbolCrossRef(crossRef);
+        mRepository.insertWatchListSymbolCrossRef(crossRef).subscribe();
     }
 
     public void deleteWatchList(WatchList watchList) {
@@ -99,14 +101,18 @@ public class WatchListItemViewModel extends AndroidViewModel {
                 .collect(Collectors.joining(","));
     }
 
-    public Disposable periodicallyFetchPrice(String listName) {
-        return Observable.interval(0, 5, TimeUnit.SECONDS)
-                .flatMap((Function<Long, Observable<List<Symbol>>>) aLong -> {
-                            if (lastWatchListWithSymbols == null) return Observable.empty();
-                            return mIEXApiRepository.getResponse(convertListToString());
-                        }
-                )
+    public Disposable fetchAndUpdatePrice() {
+        return mIEXApiRepository.getResponse(convertListToString())
+                .subscribeOn(Schedulers.io())
                 .subscribe(symbols -> mRepository.updateSymbols(symbols).subscribe());
+    }
+
+
+    public Disposable periodicallyFetchPrice() {
+        return Observable.interval(5, TimeUnit.SECONDS)
+                .doOnNext(a -> this.fetchAndUpdatePrice())
+                .subscribe();
+
     }
 
 
