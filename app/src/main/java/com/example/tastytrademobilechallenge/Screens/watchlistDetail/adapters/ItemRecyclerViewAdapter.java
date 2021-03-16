@@ -46,6 +46,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
+        if (mWatchListWithSymbols == null) return 0;
         return mWatchListWithSymbols.symbols.size();
     }
 

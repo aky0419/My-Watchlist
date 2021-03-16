@@ -1,5 +1,7 @@
 package com.example.tastytrademobilechallenge.Screens.watchlistDetail;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -32,11 +34,11 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class ItemDetailsActivity extends AppCompatActivity implements ItemRecyclerViewAdapter.OnSymbolListener {
+public class ItemDetailsActivity extends AppCompatActivity implements ItemRecyclerViewAdapter.OnSymbolListener{
     private static final String TAG = "ItemDetailsActivity";
 
-    TextView listNameTv, listCountTv;
-    ImageButton addItemBtn;
+    TextView listNameTv, listCountTv, symbolTextTv, askTextTv, bidTextTv, lastTextTv;
+    ImageButton addItemBtn, deleteListBtn;
     RecyclerView itemsRv;
     ItemRecyclerViewAdapter symbolListAdapter;
     List<String> itemsList;
@@ -55,17 +57,16 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
         listCountTv = findViewById(R.id.item_detail_count_tv);
         addItemBtn = findViewById(R.id.item_detail_add_item_btn);
         itemsRv = findViewById(R.id.item_detail_rv);
+        symbolTextTv = findViewById(R.id.symbolText);
+        askTextTv = findViewById(R.id.askText);
+        bidTextTv = findViewById(R.id.bidText);
+        lastTextTv = findViewById(R.id.lastText);
+        deleteListBtn = findViewById(R.id.item_detail_delete_list_btn);
 
         compositeDisposable = new CompositeDisposable();
 
-        addItemBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ItemDetailsActivity.this, AddItemActivity.class);
-                intent.putExtra("watchListName", listName);
-                startActivity(intent);
-            }
-        });
+        addItemBtn.setOnClickListener(this::onClick);
+        deleteListBtn.setOnClickListener(this::onClick);
 
         Intent intent = getIntent();
         listName = intent.getStringExtra("watchListName");
@@ -73,8 +74,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
         itemsList = new ArrayList<>();
 
         watchListItemViewModel = new ViewModelProvider(this).get(WatchListItemViewModel.class);
-
-        mWatchListWithSymbols = watchListItemViewModel.getSymbolsFromOneWatchList(listName).getValue();
 
         itemsRv.setLayoutManager(new LinearLayoutManager(this));
         symbolListAdapter = new ItemRecyclerViewAdapter(this, this);
@@ -85,10 +84,24 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
                 .observe(this, new Observer<WatchListWithSymbols>() {
                     @Override
                     public void onChanged(WatchListWithSymbols watchListWithSymbols) {
-                        symbolListAdapter.setSymbols(watchListWithSymbols);
-                        mWatchListWithSymbols = watchListWithSymbols;
-                        listCountTv.setText(watchListWithSymbols.symbols.size() + " items");
-                        watchListItemViewModel.lastWatchListWithSymbols = watchListWithSymbols;
+                        if (watchListWithSymbols != null) {
+                            if (watchListWithSymbols.symbols.size() == 0) {
+                                symbolTextTv.setVisibility(View.GONE);
+                                askTextTv.setVisibility(View.GONE);
+                                bidTextTv.setVisibility(View.GONE);
+                                lastTextTv.setVisibility(View.GONE);
+                                listCountTv.setText("0 items");
+                            } else {
+                                symbolTextTv.setVisibility(View.VISIBLE);
+                                askTextTv.setVisibility(View.VISIBLE);
+                                bidTextTv.setVisibility(View.VISIBLE);
+                                lastTextTv.setVisibility(View.VISIBLE);
+                                listCountTv.setText(watchListWithSymbols.symbols.size() + " items");
+                            }
+                            symbolListAdapter.setSymbols(watchListWithSymbols);
+                            mWatchListWithSymbols = watchListWithSymbols;
+                            watchListItemViewModel.lastWatchListWithSymbols = watchListWithSymbols;
+                        }
                     }
                 });
 
@@ -147,7 +160,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
     protected void onResume() {
         super.onResume();
         compositeDisposable.add(watchListItemViewModel.fetchAndUpdatePrice());
-        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
+//        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
     }
 
     @Override
@@ -172,5 +185,29 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
         Intent intent = new Intent(this, HistoryGraphActivity.class);
         intent.putExtra("symbol", mWatchListWithSymbols.symbols.get(position).symbol);
         startActivity(intent);
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.item_detail_add_item_btn:
+            Intent intent = new Intent(ItemDetailsActivity.this, AddItemActivity.class);
+            intent.putExtra("watchListName", listName);
+            startActivity(intent);
+
+            break;
+
+            case R.id.item_detail_delete_list_btn:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Are you sure you want to delete the watchList?")
+                        .setPositiveButton("Cancel", null)
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                watchListItemViewModel.deleteWatchList(mWatchListWithSymbols.mWatchList);
+                                finish();
+                            }
+                        }).create().show();
+            break;
+        }
     }
 }
