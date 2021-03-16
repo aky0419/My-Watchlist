@@ -127,13 +127,13 @@ public class QuoteModel {
     private Long avgTotalVolume;
     @SerializedName("iexBidPrice")
     @Expose
-    private Object iexBidPrice;
+    private Double iexBidPrice;
     @SerializedName("iexBidSize")
     @Expose
-    private Object iexBidSize;
+    private Double iexBidSize;
     @SerializedName("iexAskPrice")
     @Expose
-    private Object iexAskPrice;
+    private Double iexAskPrice;
     @SerializedName("iexAskSize")
     @Expose
     private Object iexAskSize;
@@ -491,11 +491,11 @@ public class QuoteModel {
         this.avgTotalVolume = avgTotalVolume;
     }
 
-    public Object getIexBidPrice() {
+    public Double getIexBidPrice() {
         return iexBidPrice;
     }
 
-    public void setIexBidPrice(Object iexBidPrice) {
+    public void setIexBidPrice(Double iexBidPrice) {
         this.iexBidPrice = iexBidPrice;
     }
 
@@ -503,15 +503,15 @@ public class QuoteModel {
         return iexBidSize;
     }
 
-    public void setIexBidSize(Object iexBidSize) {
+    public void setIexBidSize(Double iexBidSize) {
         this.iexBidSize = iexBidSize;
     }
 
-    public Object getIexAskPrice() {
+    public Double getIexAskPrice() {
         return iexAskPrice;
     }
 
-    public void setIexAskPrice(Object iexAskPrice) {
+    public void setIexAskPrice(Double iexAskPrice) {
         this.iexAskPrice = iexAskPrice;
     }
 

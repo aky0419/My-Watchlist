@@ -40,13 +40,13 @@ public interface WatchListItemsDao {
     @Query("SELECT * FROM symbols WHERE symbolName = :symbolName")
     LiveData<Symbol> getSymbol(String symbolName);
 
-    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    @Insert (onConflict = OnConflictStrategy.IGNORE)
     Completable insertWatchList(WatchList watchList);
 
-    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    @Insert (onConflict = OnConflictStrategy.IGNORE)
     Completable insertSymbol(Symbol symbol);
 
-    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    @Insert (onConflict = OnConflictStrategy.IGNORE)
     Completable insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
     @Delete
@@ -56,7 +56,7 @@ public interface WatchListItemsDao {
     Completable deleteSymbol(Symbol symbol);
 
     @Delete
-    void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
+    Completable deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
     @Update
     Completable updateSymbols(List<Symbol> symbols);

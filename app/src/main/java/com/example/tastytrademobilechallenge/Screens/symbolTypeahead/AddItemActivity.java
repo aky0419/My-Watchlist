@@ -5,20 +5,19 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.adapters.SearchSymbolLvAdapter;
-import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 import com.example.tastytrademobilechallenge.R;
-
-import java.util.List;
+import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.adapters.SearchSymbolLvAdapter;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -45,8 +44,25 @@ public class AddItemActivity extends AppCompatActivity {
         mAdapter.setViewModel(mAddItemViewModel);
         mListView.setAdapter(mAdapter);
 
-
+        mAddItemViewModel.getSymbolsFromOneWatchList(listName).observe(this, mAdapter::setExistingSymbolList);
         mAddItemViewModel.symbols.observe(this, mAdapter::setData);
+
+        mEditText.setOnTouchListener(new View.OnTouchListener() {
+            final int DRAWABLE_RIGHT = 2;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    int leftEdgeOfRightDrawable = mEditText.getRight()
+                            - mEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width();
+                    if (motionEvent.getRawX() >= leftEdgeOfRightDrawable) {
+                        mEditText.setText("");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
 
         mEditText.addTextChangedListener(new TextWatcher() {
@@ -58,7 +74,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    mAddItemViewModel.searchSymbols(charSequence.toString().trim());
+                    mAddItemViewModel.searchSymbolsByIEXApi(charSequence.toString().trim());
                 }
             }
 

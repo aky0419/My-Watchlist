@@ -13,6 +13,7 @@ import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepositor
 import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
 import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -25,10 +26,10 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WatchListItemViewModel extends AndroidViewModel {
 
-    private WatchListItemRepository mRepository;
-    private Single<List<WatchList>> allWatchList;
-    private LiveData<List<WatchListWithSymbols>> watchListsWithSymbols;
-    private IEXApiRepository mIEXApiRepository;
+    private final WatchListItemRepository mRepository;
+    private final Single<List<WatchList>> allWatchList;
+    private final LiveData<List<WatchListWithSymbols>> watchListsWithSymbols;
+    private final IEXApiRepository mIEXApiRepository;
     public WatchListWithSymbols lastWatchListWithSymbols;
 
 
@@ -45,10 +46,6 @@ public class WatchListItemViewModel extends AndroidViewModel {
     public LiveData<List<WatchListWithSymbols>> getWatchListsWithSymbols() {
         return watchListsWithSymbols;
     }
-
-//    Single<Long> insertWatchList(WatchList watchList) {
-//        return mRepository.insertWatchList(watchList);
-//    }
 
     Completable insertWatchList(WatchList watchList) {
         return mRepository.insertWatchList(watchList);
@@ -82,7 +79,7 @@ public class WatchListItemViewModel extends AndroidViewModel {
     }
 
     public void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
-        mRepository.deleteWatchListSymbolCrossRef(crossRef);
+        mRepository.deleteWatchListSymbolCrossRef(crossRef).subscribe();
     }
 
     public Disposable addDefaultWatchListIfNotExist() {
@@ -106,6 +103,7 @@ public class WatchListItemViewModel extends AndroidViewModel {
     public Disposable fetchAndUpdatePrice() {
         return mIEXApiRepository.getResponse(convertListToString())
                 .subscribeOn(Schedulers.io())
+                .onErrorReturnItem(new ArrayList<>())
                 .subscribe(symbols -> mRepository.updateSymbols(symbols).subscribe());
     }
 
@@ -114,10 +112,7 @@ public class WatchListItemViewModel extends AndroidViewModel {
         return Observable.interval(5, TimeUnit.SECONDS)
                 .doOnNext(a -> this.fetchAndUpdatePrice())
                 .subscribe();
-
     }
-
-
 }
 
 

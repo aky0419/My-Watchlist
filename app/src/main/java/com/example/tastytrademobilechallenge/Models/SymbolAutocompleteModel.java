@@ -8,18 +8,27 @@ public class SymbolAutocompleteModel {
     @SerializedName("symbol")
     @Expose
     private String symbol;
-    @SerializedName("name")
+    @SerializedName("cik")
     @Expose
-    private String name;
+    private String cik;
+    @SerializedName("securityName")
+    @Expose
+    private String securityName;
+    @SerializedName("securityType")
+    @Expose
+    private String securityType;
+    @SerializedName("region")
+    @Expose
+    private String region;
+    @SerializedName("exchange")
+    @Expose
+    private String exchange;
+    @SerializedName("sector")
+    @Expose
+    private String sector;
     @SerializedName("currency")
     @Expose
     private String currency;
-    @SerializedName("stockExchange")
-    @Expose
-    private String stockExchange;
-    @SerializedName("exchangeShortName")
-    @Expose
-    private String exchangeShortName;
 
     public String getSymbol() {
         return symbol;
@@ -29,12 +38,52 @@ public class SymbolAutocompleteModel {
         this.symbol = symbol;
     }
 
-    public String getName() {
-        return name;
+    public String getCik() {
+        return cik;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCik(String cik) {
+        this.cik = cik;
+    }
+
+    public String getSecurityName() {
+        return securityName;
+    }
+
+    public void setSecurityName(String securityName) {
+        this.securityName = securityName;
+    }
+
+    public String getSecurityType() {
+        return securityType;
+    }
+
+    public void setSecurityType(String securityType) {
+        this.securityType = securityType;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getExchange() {
+        return exchange;
+    }
+
+    public void setExchange(String exchange) {
+        this.exchange = exchange;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 
     public String getCurrency() {
@@ -43,22 +92,6 @@ public class SymbolAutocompleteModel {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public String getStockExchange() {
-        return stockExchange;
-    }
-
-    public void setStockExchange(String stockExchange) {
-        this.stockExchange = stockExchange;
-    }
-
-    public String getExchangeShortName() {
-        return exchangeShortName;
-    }
-
-    public void setExchangeShortName(String exchangeShortName) {
-        this.exchangeShortName = exchangeShortName;
     }
 
 }

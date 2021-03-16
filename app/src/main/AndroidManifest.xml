@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TastyTradeMobileChallenge">
-        <activity android:name=".HistoryGraphActivity"></activity>
+        <activity android:name=".Screens.HistroryGraphScreen.HistoryGraphActivity"></activity>
         <activity android:name=".Screens.symbolTypeahead.AddItemActivity" />
         <activity android:name=".Screens.watchlistDetail.ItemDetailsActivity" />
         <activity android:name=".Screens.mainWatchLists.MainActivity">

@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:text="@string/watchList"
         android:textSize="20sp"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom= "10dp"
+        android:layout_marginLeft= "20dp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 

@@ -23,9 +23,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.HistoryGraphActivity;
+import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
 import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 import com.example.tastytrademobilechallenge.R;
+import com.example.tastytrademobilechallenge.Screens.HistroryGraphScreen.HistoryGraphActivity;
 import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.AddItemActivity;
 import com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters.ItemRecyclerViewAdapter;
 
@@ -34,7 +35,7 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class ItemDetailsActivity extends AppCompatActivity implements ItemRecyclerViewAdapter.OnSymbolListener{
+public class ItemDetailsActivity extends AppCompatActivity implements ItemRecyclerViewAdapter.OnSymbolListener {
     private static final String TAG = "ItemDetailsActivity";
 
     TextView listNameTv, listCountTv, symbolTextTv, askTextTv, bidTextTv, lastTextTv;
@@ -114,11 +115,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-                watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
-                //need to delete crossref
-                //watchListItemViewModel.deleteWatchListSymbolCrossRef();
-
+//                watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
+                watchListItemViewModel.deleteWatchListSymbolCrossRef(new WatchListSymbolCrossRef(listName, mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()).symbol));
             }
 
             final Drawable icon = ContextCompat.getDrawable(ItemDetailsActivity.this, R.drawable.ic_baseline_delete_forever_24);
@@ -160,7 +158,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
     protected void onResume() {
         super.onResume();
         compositeDisposable.add(watchListItemViewModel.fetchAndUpdatePrice());
-//        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
+        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
     }
 
     @Override
@@ -188,13 +186,13 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
     }
 
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.item_detail_add_item_btn:
-            Intent intent = new Intent(ItemDetailsActivity.this, AddItemActivity.class);
-            intent.putExtra("watchListName", listName);
-            startActivity(intent);
+                Intent intent = new Intent(ItemDetailsActivity.this, AddItemActivity.class);
+                intent.putExtra("watchListName", listName);
+                startActivity(intent);
 
-            break;
+                break;
 
             case R.id.item_detail_delete_list_btn:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -207,7 +205,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
                                 finish();
                             }
                         }).create().show();
-            break;
+                break;
         }
     }
 }

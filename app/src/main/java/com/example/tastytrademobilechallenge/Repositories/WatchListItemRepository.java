@@ -75,8 +75,8 @@ public class WatchListItemRepository {
         return mWatchListItemsDao.deleteSymbol(symbol).subscribeOn(Schedulers.io());
     }
 
-    public void deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
-        mWatchListItemsDao.deleteWatchListSymbolCrossRef(crossRef);
+    public Completable deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef) {
+        return mWatchListItemsDao.deleteWatchListSymbolCrossRef(crossRef).subscribeOn(Schedulers.io());
     }
 
 
@@ -87,7 +87,7 @@ public class WatchListItemRepository {
                         WatchList watchList = new WatchList(DEFAULT_LIST_NAME);
                         this.insertWatchList(watchList).subscribe();
                         for (String s : DEFAULT_SYMBOLS) {
-                            this.insertSymbol(new Symbol(s, 0, 0, 0)).subscribe();
+                            this.insertSymbol(new Symbol(s, 0, 0, 0, 0)).subscribe();
                             this.insertWatchListSymbolCrossRef(new WatchListSymbolCrossRef(DEFAULT_LIST_NAME, s)).subscribe();
                         }
                     }

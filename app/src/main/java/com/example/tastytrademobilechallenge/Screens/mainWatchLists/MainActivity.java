@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tastytrademobilechallenge.R;
 import com.example.tastytrademobilechallenge.Screens.mainWatchLists.adapters.WatchListAdapter;
 import com.example.tastytrademobilechallenge.Screens.watchlistDetail.WatchListItemViewModel;
-import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
-
-import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -48,11 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         watchListRv.setLayoutManager(new LinearLayoutManager(this));
         watchListItemViewModel = new ViewModelProvider(this).get(WatchListItemViewModel.class);
 
-        compositeDisposable.add(watchListItemViewModel.addDefaultWatchListIfNotExist());
-
         watchListItemViewModel.getWatchListsWithSymbols().observe(this, mWatchListAdapter::setNodes);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        compositeDisposable.add(watchListItemViewModel.addDefaultWatchListIfNotExist());
+    }
 
     @Override
     public void onClick(View view) {
@@ -69,6 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 }

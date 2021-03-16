@@ -1,4 +1,4 @@
-package com.example.tastytrademobilechallenge;
+package com.example.tastytrademobilechallenge.Screens.HistroryGraphScreen;
 
 import android.app.Application;
 import android.util.Log;
@@ -14,6 +14,7 @@ import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 import com.example.tastytrademobilechallenge.Repositories.IEXApiRepository;
 import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -40,10 +41,7 @@ public class HistoryGraphViewModel extends AndroidViewModel {
     public Disposable getHistoricalDataList(String symbol) {
         return mIEXApiRepository
                 .getHistoricalDataList(symbol)
-                .onErrorResumeNext(throwable -> {
-                    Log.d("HistoryGraphViewModel", throwable.getLocalizedMessage());
-                    return Observable.error(throwable);
-                })
+                .onErrorReturnItem(new ArrayList<>())
                 .subscribe(historicalDataList :: postValue);
     }
 

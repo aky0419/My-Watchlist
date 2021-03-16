@@ -1,12 +1,14 @@
 package com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tastytrademobilechallenge.R;
@@ -42,6 +44,11 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             itemViewHolder.bidPrice.setText(String.valueOf(symbol.getBidPrice()));
             itemViewHolder.askPrice.setText(String.valueOf(symbol.getAskPrice()));
             itemViewHolder.lastPrice.setText(String.valueOf(symbol.getLastPrice()));
+            if(symbol.isPositive()){
+                itemViewHolder.symbol.setBackground(ContextCompat.getDrawable(mContext, R.drawable.symbol_green_bg));
+            }else{
+                itemViewHolder.symbol.setBackground(ContextCompat.getDrawable(mContext, R.drawable.symbol_red_bg));
+            }
     }
 
     @Override
@@ -49,7 +56,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (mWatchListWithSymbols == null) return 0;
         return mWatchListWithSymbols.symbols.size();
     }
-
 
     public void setSymbols(WatchListWithSymbols watchListWithSymbols) {
         this.mWatchListWithSymbols = watchListWithSymbols;
