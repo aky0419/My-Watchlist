@@ -87,7 +87,7 @@ public class IEXApiRepository {
                                         value.getIexBidPrice(),
                                         value.getIexAskPrice(),
                                         value.getLatestPrice(),
-                                        value.getOpen()
+                                        value.getOpen() == null ? value.getIexBidPrice() : value.getOpen()
                                 ));
                             } catch (RuntimeException error) {
                                 Log.d(TAG, error.getLocalizedMessage());
