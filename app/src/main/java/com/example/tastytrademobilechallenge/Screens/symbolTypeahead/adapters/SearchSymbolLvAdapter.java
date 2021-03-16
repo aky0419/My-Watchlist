@@ -62,7 +62,7 @@ public class SearchSymbolLvAdapter extends BaseAdapter {
         }
 
         holder.symbol.setText(symbols.get(i).getSymbol());
-        holder.company.setText(symbols.get(i).getSecurityName());
+        holder.company.setText(symbols.get(i).getDescription());
         if (existingSymbols.contains(symbols.get(i).getSymbol())) {
             holder.addBtn.setImageResource(R.drawable.ic_baseline_check_24);
             holder.addBtn.setEnabled(false);

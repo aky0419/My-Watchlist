@@ -12,10 +12,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 import com.example.tastytrademobilechallenge.R;
 import com.example.tastytrademobilechallenge.Screens.symbolTypeahead.adapters.SearchSymbolLvAdapter;
 
@@ -74,7 +72,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    mAddItemViewModel.searchSymbolsByIEXApi(charSequence.toString().trim());
+                    mAddItemViewModel.searchSymbols(charSequence.toString().trim());
                 }
             }
 

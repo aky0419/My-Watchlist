@@ -19,8 +19,10 @@ public interface IEXApi {
     @GET("stable/tops")
     Observable<List<StockPriceModel>> stockPriceResponse(@Query("symbols") String symbols, @Query("token") String accessToken);
 
-    @GET("stable/search/{fragment}")
-    Observable<List<SymbolAutocompleteModel>> getSymbolsBySearch(@Path("fragment") String symbolFrag, @Query("token") String accessToken);
+
+
+//    @GET("stable/search/{fragment}")
+//    Observable<List<SymbolAutocompleteModel>> getSymbolsBySearch(@Path("fragment") String symbolFrag, @Query("token") String accessToken);
 
     @GET("stable/stock/market/batch")
     Observable<Map<String, Map<String, QuoteModel>>> getMarketQuotes(@Query("types") String types, @Query("symbols") String symbols, @Query("token") String accessToken);

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.example.tastytrademobilechallenge.Models.HistoricalDataModel;
 import com.example.tastytrademobilechallenge.Models.QuoteModel;
 import com.example.tastytrademobilechallenge.Models.Symbol;
-import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.RetrofitApi.IEXApi;
 
 import java.util.ArrayList;
@@ -109,11 +108,6 @@ public class IEXApiRepository {
                 .doOnSubscribe(disposable -> Log.d(TAG, "subscribing"))
                 .doOnComplete(() -> Log.d(TAG, "completed"))
                 .doOnError(throwable -> Log.d(TAG, throwable.getLocalizedMessage()))
-                .subscribeOn(Schedulers.io());
-    }
-
-    public Observable<List<SymbolAutocompleteModel>> getSymbolListFromSearch(String searchTerm) {
-        return iexApi.getSymbolsBySearch(searchTerm, accessToken)
                 .subscribeOn(Schedulers.io());
     }
 

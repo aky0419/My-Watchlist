@@ -8,27 +8,9 @@ public class SymbolAutocompleteModel {
     @SerializedName("symbol")
     @Expose
     private String symbol;
-    @SerializedName("cik")
+    @SerializedName("description")
     @Expose
-    private String cik;
-    @SerializedName("securityName")
-    @Expose
-    private String securityName;
-    @SerializedName("securityType")
-    @Expose
-    private String securityType;
-    @SerializedName("region")
-    @Expose
-    private String region;
-    @SerializedName("exchange")
-    @Expose
-    private String exchange;
-    @SerializedName("sector")
-    @Expose
-    private String sector;
-    @SerializedName("currency")
-    @Expose
-    private String currency;
+    private String description;
 
     public String getSymbol() {
         return symbol;
@@ -38,60 +20,12 @@ public class SymbolAutocompleteModel {
         this.symbol = symbol;
     }
 
-    public String getCik() {
-        return cik;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCik(String cik) {
-        this.cik = cik;
-    }
-
-    public String getSecurityName() {
-        return securityName;
-    }
-
-    public void setSecurityName(String securityName) {
-        this.securityName = securityName;
-    }
-
-    public String getSecurityType() {
-        return securityType;
-    }
-
-    public void setSecurityType(String securityType) {
-        this.securityType = securityType;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getExchange() {
-        return exchange;
-    }
-
-    public void setExchange(String exchange) {
-        this.exchange = exchange;
-    }
-
-    public String getSector() {
-        return sector;
-    }
-
-    public void setSector(String sector) {
-        this.sector = sector;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

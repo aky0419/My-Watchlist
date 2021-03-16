@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 public class AddItemViewModel extends AndroidViewModel {
@@ -36,11 +37,11 @@ public class AddItemViewModel extends AndroidViewModel {
         symbols = new MutableLiveData<>();
     }
 
-    public Disposable searchSymbols(String symbolsFrag) {
-        return mAutoSuggestRepository
-                .searchSymbols(symbolsFrag)
-                .subscribe(symbols::postValue);
-    }
+//    public Disposable searchSymbols(String symbolsFrag) {
+//        return mAutoSuggestRepository
+//                .searchSymbols(symbolsFrag)
+//                .subscribe(symbols::postValue);
+//    }
 
     public void addTicker(Symbol symbol, String listName) {
         Completable insertTask = mWatchListItemRepository.insertSymbol(symbol);
@@ -51,8 +52,8 @@ public class AddItemViewModel extends AndroidViewModel {
         Completable.concatArray(insertTask, updateRelationTask).subscribe();
     }
 
-    public Disposable searchSymbolsByIEXApi(String searchTerm) {
-        return mIEXApiRepository.getSymbolListFromSearch(searchTerm)
+    public Disposable searchSymbols(String searchTerm) {
+        return mAutoSuggestRepository.getSymbolListFromSearch(searchTerm)
                 .onErrorReturnItem(new ArrayList<>())
                 .subscribe(symbols::postValue);
     }
@@ -60,4 +61,5 @@ public class AddItemViewModel extends AndroidViewModel {
     public LiveData<WatchListWithSymbols> getSymbolsFromOneWatchList(String watchListName) {
         return mWatchListItemRepository.getSymbolsFromOneWatchList(watchListName);
     }
+
 }

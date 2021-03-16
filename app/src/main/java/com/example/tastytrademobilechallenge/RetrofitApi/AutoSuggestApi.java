@@ -3,13 +3,14 @@ package com.example.tastytrademobilechallenge.RetrofitApi;
 import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface AutoSuggestApi {
 
-    @GET("api/v3/search")
-    Observable<List<SymbolAutocompleteModel>> getSymbolsBySearch(@Query("query") String symbol, @Query("limit") int limit, @Query("exchange") String exchange, @Query("apikey") String apiKey);
+    @GET("symbols/search/{fragment}")
+    Observable<Map<String, Map<String, List<SymbolAutocompleteModel>>>> getSymbolsBySearch(@Path("fragment") String symbolFrag);
 }
