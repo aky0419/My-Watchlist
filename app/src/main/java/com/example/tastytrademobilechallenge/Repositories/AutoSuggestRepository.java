@@ -1,11 +1,7 @@
 package com.example.tastytrademobilechallenge.Repositories;
 
-import android.nfc.Tag;
-import android.util.Log;
-
 import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.RetrofitApi.AutoSuggestApi;
-import com.example.tastytrademobilechallenge.RetrofitApi.IEXApi;
 
 import java.util.List;
 

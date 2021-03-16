@@ -22,10 +22,6 @@ import io.reactivex.Single;
 @Dao
 public interface WatchListItemsDao {
 
-//    @Transaction
-//    @Query("SELECT * FROM watchlists WHERE name = :watchListName LIMIT 1")
-//    LiveData<WatchListWithSymbols> getSymbolsFromWatchList(String watchListName);
-
     @Transaction
     @Query("SELECT * FROM watchlists")
     LiveData<List<WatchListWithSymbols>> getWatchListsWithSymbols();
@@ -40,13 +36,13 @@ public interface WatchListItemsDao {
     @Query("SELECT * FROM symbols WHERE symbolName = :symbolName")
     LiveData<Symbol> getSymbol(String symbolName);
 
-    @Insert (onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertWatchList(WatchList watchList);
 
-    @Insert (onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertSymbol(Symbol symbol);
 
-    @Insert (onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
     @Delete

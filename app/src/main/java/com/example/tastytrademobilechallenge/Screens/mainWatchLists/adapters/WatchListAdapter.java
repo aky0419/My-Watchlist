@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tastytrademobilechallenge.Models.WatchList;
+import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 import com.example.tastytrademobilechallenge.R;
 import com.example.tastytrademobilechallenge.Screens.watchlistDetail.ItemDetailsActivity;
-import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
     List<WatchListWithSymbols> mWatchListWithSymbols;
 
 
-    public WatchListAdapter( Context mContext) {
+    public WatchListAdapter(Context mContext) {
 
         this.mContext = mContext;
         this.mWatchListWithSymbols = new ArrayList<>();
@@ -64,15 +64,15 @@ public class WatchListAdapter extends RecyclerView.Adapter<WatchListAdapter.View
         // return mWatchLists.size();
     }
 
-    public void setNodes(List<WatchListWithSymbols> watchLists){
+    public void setNodes(List<WatchListWithSymbols> watchLists) {
         mWatchListWithSymbols = watchLists;
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView listName, itemCount;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
             listName = itemView.findViewById(R.id.item_mainlv_title);
             itemCount = itemView.findViewById(R.id.item_mainlv_item_count);

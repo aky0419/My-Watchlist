@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
-        <TextView
-            android:id="@+id/item_mainlv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My First List"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/item_mainlv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My First List"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/item_mainlv_item_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4 items"
-            android:layout_marginTop="5dp"
-            android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/item_mainlv_item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="4 items"
+        android:textSize="14sp" />
 
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.example.tastytrademobilechallenge.RetrofitApi;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.tastytrademobilechallenge.Models.HistoricalDataModel;
 import com.example.tastytrademobilechallenge.Models.QuoteModel;
 import com.example.tastytrademobilechallenge.Models.StockPriceModel;
@@ -11,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;

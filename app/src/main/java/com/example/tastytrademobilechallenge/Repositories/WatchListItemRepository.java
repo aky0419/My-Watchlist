@@ -4,10 +4,10 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.tastytrademobilechallenge.Models.Symbol;
-import com.example.tastytrademobilechallenge.Models.WatchList;
 import com.example.tastytrademobilechallenge.DataBase.WatchListItemsDao;
 import com.example.tastytrademobilechallenge.DataBase.WatchListItemsDatabase;
+import com.example.tastytrademobilechallenge.Models.Symbol;
+import com.example.tastytrademobilechallenge.Models.WatchList;
 import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
 import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 

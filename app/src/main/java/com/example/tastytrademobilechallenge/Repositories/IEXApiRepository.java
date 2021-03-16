@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.example.tastytrademobilechallenge.Models.HistoricalDataModel;
 import com.example.tastytrademobilechallenge.Models.QuoteModel;
-import com.example.tastytrademobilechallenge.Models.StockPriceModel;
 import com.example.tastytrademobilechallenge.Models.Symbol;
 import com.example.tastytrademobilechallenge.Models.SymbolAutocompleteModel;
 import com.example.tastytrademobilechallenge.RetrofitApi.IEXApi;
@@ -20,7 +19,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Query;
 
 public class IEXApiRepository {
 
@@ -91,7 +89,7 @@ public class IEXApiRepository {
                                         value.getIexAskPrice(),
                                         value.getLatestPrice(),
                                         value.getOpen()
-                                        ));
+                                ));
                             } catch (RuntimeException error) {
                                 Log.d(TAG, error.getLocalizedMessage());
                             }
@@ -114,7 +112,7 @@ public class IEXApiRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Observable<List<SymbolAutocompleteModel>> getSymbolListFromSearch(String searchTerm){
+    public Observable<List<SymbolAutocompleteModel>> getSymbolListFromSearch(String searchTerm) {
         return iexApi.getSymbolsBySearch(searchTerm, accessToken)
                 .subscribeOn(Schedulers.io());
     }

@@ -1,7 +1,6 @@
 package com.example.tastytrademobilechallenge.Screens.HistroryGraphScreen;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,17 +9,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.tastytrademobilechallenge.Models.HistoricalDataModel;
 import com.example.tastytrademobilechallenge.Models.Symbol;
-import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
 import com.example.tastytrademobilechallenge.Repositories.IEXApiRepository;
 import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class HistoryGraphViewModel extends AndroidViewModel {
 
@@ -42,7 +37,7 @@ public class HistoryGraphViewModel extends AndroidViewModel {
         return mIEXApiRepository
                 .getHistoricalDataList(symbol)
                 .onErrorReturnItem(new ArrayList<>())
-                .subscribe(historicalDataList :: postValue);
+                .subscribe(historicalDataList::postValue);
     }
 
     public LiveData<Symbol> getSymbol(String symbolName) {

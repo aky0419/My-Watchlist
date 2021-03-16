@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingBottom="8dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
+    android:paddingBottom="8dp"
     android:weightSum="4.5">
 
 
@@ -15,14 +15,14 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.5"
+        android:background="@drawable/symbol_green_bg"
+        android:gravity="center|start"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="AAPL"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:background="@drawable/symbol_green_bg"
         android:textColor="@color/white"
-        android:gravity="center|start" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/item_watchlistlv_last"
@@ -30,9 +30,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
+        android:gravity="center|end"
         android:text="119.98"
-        android:textSize="14sp"
-        android:gravity="center|end" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/item_watchlistlv_bid"
@@ -40,9 +40,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
+        android:gravity="center|end"
         android:text="1.01"
-        android:textSize="14sp"
-        android:gravity="center|end" />
+        android:textSize="14sp" />
 
 
     <TextView
@@ -51,9 +51,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:gravity="center|end"
         android:text="120.08"
-        android:gravity="center|end" />
+        android:textSize="14sp" />
 
 
 </LinearLayout>

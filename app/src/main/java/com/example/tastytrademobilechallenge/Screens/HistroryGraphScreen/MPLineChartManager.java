@@ -2,23 +2,14 @@ package com.example.tastytrademobilechallenge.Screens.HistroryGraphScreen;
 
 import android.graphics.Color;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 线形图表
@@ -32,7 +23,7 @@ public class MPLineChartManager {
         this.mLineChart = lineChart;
     }
 
-    public void intiChart(){
+    public void intiChart() {
         mLineChart.setBackgroundColor(Color.WHITE);
         XAxis xAxis = mLineChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);

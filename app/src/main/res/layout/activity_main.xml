@@ -3,42 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/main_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/watchList"
-        android:textSize="20sp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom= "10dp"
-        android:layout_marginLeft= "20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/watchList"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        android:dividerHeight="6dp"
-        android:scrollbars="none"
         android:layout_below="@id/main_tv"
+        android:dividerHeight="6dp"
         android:groupIndicator="@null"
-        />
+        android:padding="10dp"
+        android:scrollbars="none" />
 
     <ImageButton
         android:id="@+id/main_imagebtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/main_addlistbtn_bg"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_baseline_add_24"
         android:layout_margin="30dp"
+        android:background="@drawable/main_addlistbtn_bg"
         android:onClick="onClick"
-        android:layout_alignParentEnd="true" />
+        android:src="@drawable/ic_baseline_add_24" />
 
 </RelativeLayout>

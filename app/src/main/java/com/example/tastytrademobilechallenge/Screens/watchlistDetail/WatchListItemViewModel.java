@@ -8,10 +8,10 @@ import androidx.lifecycle.LiveData;
 
 import com.example.tastytrademobilechallenge.Models.Symbol;
 import com.example.tastytrademobilechallenge.Models.WatchList;
-import com.example.tastytrademobilechallenge.Repositories.IEXApiRepository;
-import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepository;
 import com.example.tastytrademobilechallenge.Models.WatchListSymbolCrossRef;
 import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
+import com.example.tastytrademobilechallenge.Repositories.IEXApiRepository;
+import com.example.tastytrademobilechallenge.Repositories.WatchListItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,6 @@ public class WatchListItemViewModel extends AndroidViewModel {
         allWatchList = mRepository.getAllWatchLists();
         watchListsWithSymbols = mRepository.getWatchListsWithSymbols();
     }
-
 
 
     public LiveData<List<WatchListWithSymbols>> getWatchListsWithSymbols() {

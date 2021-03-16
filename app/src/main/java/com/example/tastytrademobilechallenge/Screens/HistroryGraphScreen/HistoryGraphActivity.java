@@ -27,7 +27,7 @@ public class HistoryGraphActivity extends AppCompatActivity {
     HistoryGraphViewModel mHistoryGraphViewModel;
     String symbolName;
     MPLineChartManager mMPLineChartManager;
-    
+
     double highestPrice;
     double lowestPrices;
 
@@ -48,7 +48,7 @@ public class HistoryGraphActivity extends AppCompatActivity {
         symbol.setText(symbolName);
 
         mHistoryGraphViewModel = new ViewModelProvider(this).get(HistoryGraphViewModel.class);
-        
+
         mHistoryGraphViewModel.getSymbol(symbolName).observe(this, new Observer<Symbol>() {
             @Override
             public void onChanged(Symbol symbol) {
@@ -57,7 +57,7 @@ public class HistoryGraphActivity extends AppCompatActivity {
                 lastPrice.setText(String.valueOf(symbol.getLastPrice()));
             }
         });
-        
+
         mHistoryGraphViewModel.getHistoricalDataList(symbolName);
         mHistoryGraphViewModel.historicalDataList.observe(this, new Observer<List<HistoricalDataModel>>() {
             @Override
@@ -66,8 +66,8 @@ public class HistoryGraphActivity extends AppCompatActivity {
             }
         });
     }
-    
-    public void getDataAndDrawGraph(List<HistoricalDataModel> historicalDataModels){
+
+    public void getDataAndDrawGraph(List<HistoricalDataModel> historicalDataModels) {
         if (historicalDataModels != null) {
             Log.d(TAG, "onChanged: dataChanged");
             ArrayList<String> xValues = new ArrayList<String>();

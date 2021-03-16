@@ -1,6 +1,6 @@
 package com.example.tastytrademobilechallenge.Screens.watchlistDetail;
 
-import android.app.AlertDialog;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
@@ -115,7 +116,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
                 watchListItemViewModel.deleteWatchListSymbolCrossRef(new WatchListSymbolCrossRef(listName, mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()).symbol));
             }
 
@@ -198,14 +198,15 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Are you sure you want to delete the watchList?")
                         .setPositiveButton("Cancel", null)
-                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 watchListItemViewModel.deleteWatchList(mWatchListWithSymbols.mWatchList);
                                 finish();
                             }
                         }).create().show();
-                break;
+
+
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.example.tastytrademobilechallenge.Screens.watchlistDetail.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tastytrademobilechallenge.R;
 import com.example.tastytrademobilechallenge.Models.Symbol;
 import com.example.tastytrademobilechallenge.Models.WatchList;
 import com.example.tastytrademobilechallenge.Models.WatchListWithSymbols;
+import com.example.tastytrademobilechallenge.R;
 
 import java.util.ArrayList;
 
@@ -38,17 +37,17 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-            ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            Symbol symbol = mWatchListWithSymbols.symbols.get(position);
-            itemViewHolder.symbol.setText(symbol.getSymbol());
-            itemViewHolder.bidPrice.setText(String.valueOf(symbol.getBidPrice()));
-            itemViewHolder.askPrice.setText(String.valueOf(symbol.getAskPrice()));
-            itemViewHolder.lastPrice.setText(String.valueOf(symbol.getLastPrice()));
-            if(symbol.isPositive()){
-                itemViewHolder.symbol.setBackground(ContextCompat.getDrawable(mContext, R.drawable.symbol_green_bg));
-            }else{
-                itemViewHolder.symbol.setBackground(ContextCompat.getDrawable(mContext, R.drawable.symbol_red_bg));
-            }
+        ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+        Symbol symbol = mWatchListWithSymbols.symbols.get(position);
+        itemViewHolder.symbol.setText(symbol.getSymbol());
+        itemViewHolder.bidPrice.setText(String.valueOf(symbol.getBidPrice()));
+        itemViewHolder.askPrice.setText(String.valueOf(symbol.getAskPrice()));
+        itemViewHolder.lastPrice.setText(String.valueOf(symbol.getLastPrice()));
+        if (symbol.isPositive()) {
+            itemViewHolder.symbol.setBackground(ContextCompat.getDrawable(mContext, R.drawable.symbol_green_bg));
+        } else {
+            itemViewHolder.symbol.setBackground(ContextCompat.getDrawable(mContext, R.drawable.symbol_red_bg));
+        }
     }
 
     @Override
@@ -87,7 +86,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    public interface OnSymbolListener{
+    public interface OnSymbolListener {
         void onSymbolClick(int position);
     }
 }
