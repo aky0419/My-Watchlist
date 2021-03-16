@@ -51,7 +51,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         listNameTv = findViewById(R.id.item_detail_name_tv);
         listCountTv = findViewById(R.id.item_detail_count_tv);
         addItemBtn = findViewById(R.id.item_detail_add_item_btn);
@@ -104,6 +103,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
                 watchListItemViewModel.deleteSymbol(mWatchListWithSymbols.symbols.get(viewHolder.getAdapterPosition()));
+                //need to delete crossref
+                //watchListItemViewModel.deleteWatchListSymbolCrossRef();
 
             }
 
@@ -146,7 +147,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
     protected void onResume() {
         super.onResume();
         compositeDisposable.add(watchListItemViewModel.fetchAndUpdatePrice());
-//        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
+        compositeDisposable.add(watchListItemViewModel.periodicallyFetchPrice());
     }
 
     @Override
@@ -160,8 +161,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         compositeDisposable.clear();
     }
 

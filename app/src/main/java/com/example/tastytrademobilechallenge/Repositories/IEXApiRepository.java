@@ -46,6 +46,8 @@ public class IEXApiRepository {
         mHistoricalDataModelList = new ArrayList<>();
     }
 
+
+
     public Observable<List<Symbol>> getResponse(String symbols) {
         Log.d(TAG, "getResponse: I am working every 5s -> " + symbols);
         if (symbols == null || symbols.trim().isEmpty()) {

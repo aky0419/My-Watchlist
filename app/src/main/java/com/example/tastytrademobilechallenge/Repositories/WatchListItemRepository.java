@@ -52,6 +52,10 @@ public class WatchListItemRepository {
         return mWatchListItemsDao.insertWatchListSymbolCrossRef(crossRef).subscribeOn(Schedulers.io());
     }
 
+    public LiveData<Symbol> getSymbol(String symbolName) {
+        return mWatchListItemsDao.getSymbol(symbolName);
+    }
+
 
     public Single<List<WatchList>> getAllWatchLists() {
         return watchLists;

@@ -35,8 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         watchListRv = findViewById(R.id.main_lv);
         addWatchListBtn = findViewById(R.id.main_imagebtn);
+
         compositeDisposable = new CompositeDisposable();
 
 

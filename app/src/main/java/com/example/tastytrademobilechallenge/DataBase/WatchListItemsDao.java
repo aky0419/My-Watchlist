@@ -37,6 +37,9 @@ public interface WatchListItemsDao {
     @Query("SELECT * FROM watchlists")
     Single<List<WatchList>> getAllWatchLists();
 
+    @Query("SELECT * FROM symbols WHERE symbolName = :symbolName")
+    LiveData<Symbol> getSymbol(String symbolName);
+
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     Completable insertWatchList(WatchList watchList);
 

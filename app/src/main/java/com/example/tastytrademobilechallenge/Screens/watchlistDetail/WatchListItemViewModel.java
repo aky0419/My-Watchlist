@@ -40,9 +40,7 @@ public class WatchListItemViewModel extends AndroidViewModel {
         watchListsWithSymbols = mRepository.getWatchListsWithSymbols();
     }
 
-    public LiveData<WatchListWithSymbols> getSymbolsFromOneWatchList(String watchListName) {
-        return mRepository.getSymbolsFromOneWatchList(watchListName);
-    }
+
 
     public LiveData<List<WatchListWithSymbols>> getWatchListsWithSymbols() {
         return watchListsWithSymbols;
@@ -54,6 +52,10 @@ public class WatchListItemViewModel extends AndroidViewModel {
 
     Completable insertWatchList(WatchList watchList) {
         return mRepository.insertWatchList(watchList);
+    }
+
+    public LiveData<WatchListWithSymbols> getSymbolsFromOneWatchList(String watchListName) {
+        return mRepository.getSymbolsFromOneWatchList(watchListName);
     }
 
     Single<List<WatchList>> getAllWatchLists() {

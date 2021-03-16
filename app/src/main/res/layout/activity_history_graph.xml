@@ -97,6 +97,7 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/graph_candle_stick_chart"
         android:layout_below="@id/layout1"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="10dp"/>
