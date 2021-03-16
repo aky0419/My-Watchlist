@@ -201,7 +201,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements ItemRecycl
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                watchListItemViewModel.deleteWatchList(mWatchListWithSymbols.mWatchList);
+                                watchListItemViewModel.deleteWatchList(mWatchListWithSymbols);
                                 finish();
                             }
                         }).create().show();

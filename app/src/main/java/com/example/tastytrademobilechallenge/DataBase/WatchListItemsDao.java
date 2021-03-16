@@ -54,6 +54,9 @@ public interface WatchListItemsDao {
     @Delete
     Completable deleteWatchListSymbolCrossRef(WatchListSymbolCrossRef crossRef);
 
+    @Delete
+    Completable deleteWatchListSymbolCrossRefs(List<WatchListSymbolCrossRef> crossRefs);
+
     @Update
     Completable updateSymbols(List<Symbol> symbols);
 

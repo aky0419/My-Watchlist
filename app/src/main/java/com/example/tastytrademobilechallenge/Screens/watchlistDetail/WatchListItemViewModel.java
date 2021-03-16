@@ -68,8 +68,13 @@ public class WatchListItemViewModel extends AndroidViewModel {
         mRepository.insertWatchListSymbolCrossRef(crossRef).subscribe();
     }
 
-    public void deleteWatchList(WatchList watchList) {
-        mRepository.deleteWatchList(watchList).subscribe();
+    public void deleteWatchList(WatchListWithSymbols watchListWithSymbols) {
+        mRepository.deleteWatchList(watchListWithSymbols.mWatchList).subscribe();
+        mRepository.deleteWatchListSymbolCrossRefs(watchListWithSymbols.symbols
+                .stream()
+                .map(symbol -> new WatchListSymbolCrossRef(watchListWithSymbols.mWatchList.name, symbol.getSymbol()))
+                .collect(Collectors.toList()))
+                .subscribe();
     }
 
 

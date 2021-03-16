@@ -65,6 +65,11 @@ public class WatchListItemRepository {
         return watchListsWithSymbols;
     }
 
+    public Completable deleteWatchListSymbolCrossRefs(List<WatchListSymbolCrossRef> crossRefs){
+        return mWatchListItemsDao.deleteWatchListSymbolCrossRefs(crossRefs).subscribeOn(Schedulers.io());
+    }
+
+
 
     public Completable deleteWatchList(WatchList watchList) {
         return mWatchListItemsDao.deleteWatchList(watchList).subscribeOn(Schedulers.io());
