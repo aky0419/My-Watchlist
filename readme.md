@@ -6,6 +6,7 @@ I am using the https://sandbox.iexapis.com/stable/stock/market/batch end point f
 
 I was trying to compare the latest price with open price to dynamically change the color of symbols, however the open price is null. So if the open price is null, we are comparing to the bidprice.
 
+Forgot to show in the video, you can swipde symbol from right to left to delete the symbol from a watchlist.
 
 
 
